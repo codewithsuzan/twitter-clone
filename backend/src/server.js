@@ -7,6 +7,8 @@ const app = express();
 
 dotenv.config();
 
+app.use(express.json()); // to parse req.body
+
 app.use("/api/auth", authRoute);
 
 connectDB()
