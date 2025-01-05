@@ -15,6 +15,7 @@ const userShhema = new Schema(
       type: String,
       required: true,
       minLength: 8,
+      // select: false,
     },
     email: {
       type: String,
@@ -57,4 +58,4 @@ const userShhema = new Schema(
   }
 );
 
-export const User = mongoose.model("User", userShhema); 
+export  const User = mongoose.model("User", userShhema); 
