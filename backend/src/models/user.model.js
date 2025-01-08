@@ -40,7 +40,7 @@ const userShhema = new Schema(
       type: String,
       default: "",
     },
-    coeverImg: {
+    coverImg: {
       type: String,
       default: "",
     },
