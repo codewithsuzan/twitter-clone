@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
 import { USERS_FOR_RIGHT_PANEL } from "../../utils/db/dummy";
+import { useEffect, useState } from "react";
 
 const RightPanel = () => {
-	const isLoading = false;
+	// const isLoading = false;
+	const [isLoading,setIsLoading] = useState(true)
+
+	useEffect(() => {
+			const timer = setTimeout(() => {
+				setIsLoading(false);
+			}, 2000);
+			return () => clearTimeout(timer); // Cleanup the timer
+		}, []);
 
 	return (
 		<div className='hidden lg:block my-4 mx-2'>
