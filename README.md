@@ -30,15 +30,3 @@ CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
 ```
 
-### Build the app
-
-```shell 
-npm run build
-```
-
-
-### Start the app
-
-```shell
-npm start
-```
