@@ -11,8 +11,6 @@ import toast from "react-hot-toast";
 const Sidebar = () => {
   const {
     mutate: logoutMutation,
-    isError,
-    error,
   } = useMutation({
     mutationFn: async () => {
       try {
@@ -28,7 +26,7 @@ const Sidebar = () => {
       }
     },
     onSuccess: () => {
-      toast.success("Logged out successfully");
+      toast.success("Logged out successful");
     },
 	onError:()=>{
 		toast.error("Failed to log out")
