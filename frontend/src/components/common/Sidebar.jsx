@@ -3,35 +3,36 @@ import XSvg from "../svgs/X";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation ,useQuery, useQueryClient} from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import toast from "react-hot-toast";
 
-const Sidebar = () => {
-  const {
-    mutate: logoutMutation,
-  } = useMutation({
-    mutationFn: async () => {
-      try {
-        const res = await fetch("api/auth/logout", {
-          method: "POST",
-        });
-        const data = res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "Something went wrong");
+  const Sidebar = () => {
+    const queryClient = useQueryClient();
+    const { mutate: logout } = useMutation({
+      mutationFn: async () => {
+        try {
+          const res = await fetch("/api/auth/logout", {
+            method: "POST",
+          });
+          const data = await res.json();
+  
+          if (!res.ok) {
+            throw new Error(data.error || "Something went wrong");
+          }
+        } catch (error) {
+          throw new Error(error);
         }
-      } catch (error) {
-        throw new Error();
-      }
-    },
-    onSuccess: () => {
-      toast.success("Logged out successful");
-    },
-	onError:()=>{
-		toast.error("Failed to log out")
-	}
-  });
+      },
+      onSuccess: () => {
+        toast.success("Logged out successfully");
+        queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      },
+      onError: () => {
+        toast.error("Logout failed");
+      },
+    });
 
   const data = {
     fullName: "John Doe",
@@ -96,7 +97,7 @@ const Sidebar = () => {
                 className="w-5 h-5 cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
-                  logoutMutation();
+                  logout();
                 }}
               />
             </div>
